@@ -41,7 +41,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -52,7 +52,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('home') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Employee Management</span>
                 </a>
@@ -66,7 +66,24 @@
                 Navs
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - User Management Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+                    aria-expanded="true" aria-controls="collapseUser">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>User Management</span>
+                </a>
+                <div id="collapseUser" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('users.index') }}">Users</a>
+                        <a class="collapse-item" href="#">Role</a>
+                        <a class="collapse-item" href="#">Permission</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - System Management Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSystem"
                     aria-expanded="true" aria-controls="collapseSystem">
@@ -79,23 +96,6 @@
                         <a class="collapse-item" href="#">State</a>
                         <a class="collapse-item" href="#">City</a>
                         <a class="collapse-item" href="#">Department</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
-                    aria-expanded="true" aria-controls="collapseUser">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>User Management</span>
-                </a>
-                <div id="collapseUser" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">User</a>
-                        <a class="collapse-item" href="#">Role</a>
-                        <a class="collapse-item" href="#">Permission</a>
                     </div>
                 </div>
             </li>
@@ -164,11 +164,6 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    </div>
 
                     <!-- Content Row -->
                     <div class="row">
