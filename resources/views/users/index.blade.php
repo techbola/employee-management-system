@@ -14,8 +14,20 @@
           @endif
         </div>
         <div class="card">
-            <div class="card-header">
-                <a href="{{ route('users.create') }}" class="float-right text-decoration-none">Create</a>
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <form method="GET" action="{{ route('users.index') }}">
+                <div class="form-row align-items-center">
+                  <div class="col-auto">
+                    <input type="text" name="search" class="form-control mb-2" placeholder="Search">
+                  </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                  </div>
+                </div>
+              </form>
+              <div>
+                <a href="{{ route('users.create') }}" class="btn btn-primary">Create</a>
+              </div>
             </div>
             <div class="card-body">
                 <table class="table">
