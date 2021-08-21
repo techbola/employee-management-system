@@ -4,15 +4,15 @@
     <div class="col-md-12">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Countries</h1>
+            <h1 class="h3 mb-0 text-gray-800">Cities</h1>
         </div>
         <div class="card">
             <div class="card-header">
-                Create New Country
-                <a href="{{ route('countries.index') }}" class="float-right text-decoration-none">Back</a>
+                Create New City
+                <a href="{{ route('cities.index') }}" class="float-right text-decoration-none">Back</a>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('countries.store') }}">
+                <form method="POST" action="{{ route('cities.store') }}">
                     @csrf
 
                     <div class="form-group row">
@@ -30,12 +30,16 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="country_code" class="col-md-4 col-form-label text-md-right">{{ __('Code') }}</label>
+                        <label for="state_id" class="col-md-4 col-form-label text-md-right">{{ __('State') }}</label>
 
                         <div class="col-md-6">
-                            <input id="country_code" type="text" class="form-control @error('country_code') is-invalid @enderror" name="country_code" value="{{ old('country_code') }}" required autocomplete="country_code" autofocus>
+                            <select id="state_id" name="state_id" class="custom-select @error('state_id') is-invalid @enderror" required>
+                                @foreach ($states as $state)
+                                    <option value="{{ $state->id }}">{{ $state-> name }}</option>
+                                @endforeach
+                            </select>
 
-                            @error('country_code')
+                            @error('state_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
