@@ -3,7 +3,7 @@
 @section('content')
   <div class="col-md-12">
     <div id="app">
-      <employees-index></employees-index>
+      <router-view></router-view>
     </div>
   </div>
 @endsection

@@ -37,7 +37,11 @@
                         </div>
                     </form>
                     <div>
-                        <a href="#" class="btn btn-primary">Create</a>
+                        <router-link
+                            :to="{ name: 'EmployeesCreate' }"
+                            class="btn btn-primary"
+                            >Create</router-link
+                        >
                     </div>
                 </div>
                 <div class="card-body">
@@ -45,18 +49,32 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Code</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Department</th>
                                 <th scope="col">Manage</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>name</td>
-                                <td>code</td>
+                            <tr
+                                v-for="employee in employees"
+                                :key="employee.id"
+                            >
+                                <th scope="row">{{ employee.id }}</th>
+                                <td>{{ employee.first_name }}</td>
+                                <td>{{ employee.last_name }}</td>
+                                <td>{{ employee.address }}</td>
+                                <td>{{ employee.department.name }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-success">Edit</a>
+                                    <router-link
+                                        :to="{
+                                            name: 'EmployeeEdit',
+                                            params: { id: employee.id }
+                                        }"
+                                        class="btn btn-success"
+                                        >Edit</router-link
+                                    >
                                 </td>
                             </tr>
                         </tbody>
@@ -68,7 +86,28 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            employees: []
+        };
+    },
+    created() {
+        this.getEmployees();
+    },
+    methods: {
+        getEmployees() {
+            axios
+                .get("api/employees")
+                .then(results => {
+                    this.employees = results.data.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    }
+};
 </script>
 
 <style></style>
