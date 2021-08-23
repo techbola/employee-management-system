@@ -7,9 +7,9 @@
             >
                 <h1 class="h3 mb-0 text-gray-800">Employees</h1>
             </div>
-            <div>
+            <div v-if="showMessage">
                 <div class="alert alert-success">
-                    message
+                    {{ message }}
                 </div>
             </div>
             <div class="card">
@@ -75,6 +75,12 @@
                                         class="btn btn-success"
                                         >Edit</router-link
                                     >
+                                    <button
+                                        class="btn btn-danger"
+                                        @click="deleteEmployee(employee.id)"
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -89,7 +95,9 @@
 export default {
     data() {
         return {
-            employees: []
+            employees: [],
+            showMessage: false,
+            message: ""
         };
     },
     created() {
@@ -101,6 +109,19 @@ export default {
                 .get("api/employees")
                 .then(results => {
                     this.employees = results.data.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        deleteEmployee(id) {
+            axios
+                .delete(`api/employees/${id}`)
+                .then(result => {
+                    console.log(result);
+                    this.showMessage = true;
+                    this.message = result.data;
+                    this.getEmployees();
                 })
                 .catch(error => {
                     console.log(error);
