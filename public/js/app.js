@@ -2136,8 +2136,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    storeEmployee: function storeEmployee() {
-      console.log("here");
+    updateEmployee: function updateEmployee() {
+      var _this5 = this;
+
       axios.post("/api/employees", {
         first_name: this.form.first_name,
         last_name: this.form.last_name,
@@ -2152,6 +2153,10 @@ __webpack_require__.r(__webpack_exports__);
         date_hired: this.format_date(this.form.date_hired)
       }).then(function (result) {
         console.log("registered");
+
+        _this5.$router.push({
+          name: "EmployeesIndex"
+        });
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2400,6 +2405,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2424,53 +2434,70 @@ __webpack_require__.r(__webpack_exports__);
         department_id: "",
         birthdate: null,
         date_hired: null
-      }
+      },
+      employeeId: null
     };
   },
   created: function created() {
+    this.employeeId = this.$route.params.id;
+    this.getEmployee();
     this.getCountries();
     this.getDepartments();
   },
   methods: {
-    getCountries: function getCountries() {
+    getEmployee: function getEmployee() {
       var _this = this;
 
+      axios.get("/api/employees/".concat(this.employeeId)).then(function (result) {
+        _this.form = result.data.data;
+
+        _this.getStates();
+
+        _this.getCities();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getCountries: function getCountries() {
+      var _this2 = this;
+
       axios.get("/api/employees/countries").then(function (results) {
-        _this.countries = results.data;
+        _this2.countries = results.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getStates: function getStates() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("/api/employees/".concat(this.form.country_id, "/states")).then(function (results) {
-        _this2.states = results.data;
+        _this3.states = results.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCities: function getCities() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/api/employees/".concat(this.form.state_id, "/cities")).then(function (results) {
-        _this3.cities = results.data;
+        _this4.cities = results.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getDepartments: function getDepartments() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get("/api/employees/departments").then(function (results) {
-        _this4.departments = results.data;
+        _this5.departments = results.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    storeEmployee: function storeEmployee() {
-      console.log("here");
-      axios.post("/api/employees", {
+    updateEmployee: function updateEmployee() {
+      var _this6 = this;
+
+      axios.put("/api/employees/".concat(this.employeeId), {
         first_name: this.form.first_name,
         last_name: this.form.last_name,
         middle_name: this.form.middle_name,
@@ -2483,7 +2510,11 @@ __webpack_require__.r(__webpack_exports__);
         birthdate: this.format_date(this.form.birthdate),
         date_hired: this.format_date(this.form.date_hired)
       }).then(function (result) {
-        console.log("registered");
+        console.log("updated");
+
+        _this6.$router.push({
+          name: "EmployeesIndex"
+        });
       })["catch"](function (error) {
         console.log(error);
       });
@@ -59846,7 +59877,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.storeEmployee.apply(null, arguments)
+                return _vm.updateEmployee.apply(null, arguments)
               }
             }
           },
@@ -60361,14 +60392,14 @@ var render = function() {
         "div",
         { staticClass: "card-header" },
         [
-          _vm._v("\n            Edit Employee\n            "),
+          _vm._v("\n      Edit Employee\n      "),
           _c(
             "router-link",
             {
               staticClass: "btn btn-primary float-right",
               attrs: { to: { name: "EmployeesIndex" } }
             },
-            [_vm._v("Back")]
+            [_vm._v("Back\n      ")]
           )
         ],
         1
@@ -60381,7 +60412,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.storeEmployee.apply(null, arguments)
+                return _vm.updateEmployee.apply(null, arguments)
               }
             }
           },
@@ -60564,7 +60595,7 @@ var render = function() {
                     return _c(
                       "option",
                       { key: country.id, domProps: { value: country.id } },
-                      [_vm._v(_vm._s(country.name))]
+                      [_vm._v(_vm._s(country.name) + "\n              ")]
                     )
                   }),
                   0
@@ -60622,7 +60653,7 @@ var render = function() {
                     return _c(
                       "option",
                       { key: state.id, domProps: { value: state.id } },
-                      [_vm._v(_vm._s(state.name))]
+                      [_vm._v(_vm._s(state.name) + "\n              ")]
                     )
                   }),
                   0
@@ -60675,7 +60706,7 @@ var render = function() {
                     return _c(
                       "option",
                       { key: city.id, domProps: { value: city.id } },
-                      [_vm._v(_vm._s(city.name))]
+                      [_vm._v(_vm._s(city.name) + "\n              ")]
                     )
                   }),
                   0
@@ -60731,7 +60762,7 @@ var render = function() {
                         key: department.id,
                         domProps: { value: department.id }
                       },
-                      [_vm._v(_vm._s(department.name))]
+                      [_vm._v(_vm._s(department.name) + "\n              ")]
                     )
                   }),
                   0
@@ -60856,11 +60887,7 @@ var staticRenderFns = [
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [
-            _vm._v(
-              "\n                            Update\n                        "
-            )
-          ]
+          [_vm._v("\n              Update\n            ")]
         )
       ])
     ])
@@ -60958,7 +60985,7 @@ var render = function() {
                           staticClass: "btn btn-success",
                           attrs: {
                             to: {
-                              name: "EmployeeEdit",
+                              name: "EmployeesEdit",
                               params: { id: employee.id }
                             }
                           }

@@ -69,7 +69,7 @@
                                 <td>
                                     <router-link
                                         :to="{
-                                            name: 'EmployeeEdit',
+                                            name: 'EmployeesEdit',
                                             params: { id: employee.id }
                                         }"
                                         class="btn btn-success"

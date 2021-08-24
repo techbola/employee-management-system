@@ -14,7 +14,7 @@
                 >
             </div>
             <div class="card-body">
-                <form @submit.prevent="storeEmployee">
+                <form @submit.prevent="updateEmployee">
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label text-md-right"
                             >First Name</label
@@ -292,8 +292,7 @@ export default {
                     console.log(error);
                 });
         },
-        storeEmployee() {
-            console.log("here");
+        updateEmployee() {
             axios
                 .post("/api/employees", {
                     first_name: this.form.first_name,
@@ -310,6 +309,7 @@ export default {
                 })
                 .then(result => {
                     console.log("registered");
+                    this.$router.push({ name: "EmployeesIndex" });
                 })
                 .catch(error => {
                     console.log(error);
